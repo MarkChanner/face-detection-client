@@ -1,6 +1,8 @@
 import React from 'react';
 import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
@@ -13,7 +15,7 @@ const app = new Clarifai.App({
 });
 
 class App extends React.Component {
-  state = { input: '', imageUrl: '', box: {} };
+  state = { input: '', imageUrl: '', box: {}, route: 'signin' };
 
   calculateFaceLocation = data => {
     const face = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -47,17 +49,32 @@ class App extends React.Component {
       .catch(err => console.log(err));
   };
 
+  onRouteChange = route => {
+    this.setState({ route });
+  };
+
   render() {
     return (
       <div className="App">
-        <Navigation />
-        <Rank />
-        <Logo />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
-        />
-        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
+        <Navigation onRouteChange={this.onRouteChange} />
+        {this.state.route === 'home' ? (
+          <div>
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceRecognition
+              box={this.state.box}
+              imageUrl={this.state.imageUrl}
+            />
+          </div>
+        ) : this.state.route === 'signin' ? (
+          <Signin onRouteChange={this.onRouteChange} />
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
+        )}
       </div>
     );
   }
