@@ -107,7 +107,7 @@ class App extends React.Component {
   render() {
     const { isSignedIn, imageUrl, route, box } = this.state;
     return (
-      <div className="App">
+      <section className="App">
         <Navigation
           onRouteChange={this.onRouteChange}
           isSignedIn={isSignedIn}
@@ -133,7 +133,7 @@ class App extends React.Component {
             loadUser={this.loadUser}
           />
         )}
-      </div>
+      </section>
     );
   }
 }
