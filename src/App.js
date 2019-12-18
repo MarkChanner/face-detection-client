@@ -1,5 +1,4 @@
 import React from 'react';
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
@@ -7,12 +6,7 @@ import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-import keys from './config/dev';
 import './App.css';
-
-const app = new Clarifai.App({
-  apiKey: keys.clarifaiAPI
-});
 
 const initialState = {
   input: '',
@@ -45,9 +39,9 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:3000/')
-      .then(response => response.json())
-      .then(console.log);
+    fetch('http://localhost:3000/', {
+      headers: { 'Content-Type': 'application/json' }
+    }).then(response => response.json());
   }
 
   calculateFaceLocation = data => {
@@ -64,7 +58,6 @@ class App extends React.Component {
   };
 
   displayFaceBox = box => {
-    console.log(box);
     this.setState({ box });
   };
 
@@ -74,8 +67,14 @@ class App extends React.Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    fetch('http://localhost:3000/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+      .then(response => response.json())
       .then(response => {
         if (response) {
           fetch('http://localhost:3000/image', {
