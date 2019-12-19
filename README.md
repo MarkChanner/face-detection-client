@@ -5,7 +5,9 @@ paste an image url into the input field to see the image and facial outline. The
 count of the number of images a user has submitted.
 
 When an image is submitted, this app calls my Face Detection API, which has been deployed to Heroku.
-Further information on this API can be found [here]: https://github.com/MarkChanner/face-detection-api/blob/master/README.md
+Further information on this API can be found [here][face-detection-api].
+
+[face-detection-api]: https://github.com/MarkChanner/face-detection-api/blob/master/README.md
 
 ## To Run
 
