@@ -10,4 +10,4 @@ Further information on this API can be found [here]: https://github.com/MarkChan
 ## To Run
 
 `npm install`  
-`node server.js`
+`npm start`
