@@ -1,6 +1,6 @@
 # Face Detection Client
 
-This repo renders an outline around the first face found in a given image. After registration, simply
+This app renders an outline around the first face found in a given image. After registration, simply
 paste an image url into the input field to see the image and facial outline. The app will also keep a
 count of the number of images a user has submitted.
 
